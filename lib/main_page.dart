@@ -106,7 +106,12 @@ class _MainPageState extends State<MainPage> {
                           builder: (BuildContext context) {
                             return Container(
                               height: 200,
-                              color: Colors.white,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(12.0),
+                                topRight: Radius.circular(12.0),
+                              )
+                            ),
                               child: Center(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
