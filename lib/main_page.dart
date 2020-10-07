@@ -10,12 +10,13 @@ class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
-enum BottomIcons { Home, Store,Plus, Explore, Profile }
+enum BottomIcons { Home, Store, Plus, Explore, Profile }
 
 class _MainPageState extends State<MainPage> {
   BottomIcons bottomIcons = BottomIcons.Home;
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -52,10 +53,21 @@ class _MainPageState extends State<MainPage> {
                 )
               : Container(),
           Positioned(
-            top: 400,
+              top: 400,
               right: 15.0,
-              child:
-          FloatingActionButton(backgroundColor: Colors.blue,child:Icon( Icons.keyboard_arrow_up_outlined,))),
+              child: FloatingActionButton(
+                  backgroundColor: Colors.blue,
+                  child: Icon(
+                    Icons.keyboard_arrow_up_outlined,
+
+                  ),
+                onPressed: () {
+
+                  }
+
+
+              )
+          ),
           Align(
             alignment: Alignment.bottomLeft,
             child: Container(
@@ -73,7 +85,6 @@ class _MainPageState extends State<MainPage> {
                           bottomIcons == BottomIcons.Home ? true : false,
                       icons: EvaIcons.home,
                       text: "Home"),
-
                   BottomBar(
                       onPressed: () {
                         setState(() {
@@ -84,18 +95,41 @@ class _MainPageState extends State<MainPage> {
                           bottomIcons == BottomIcons.Store ? true : false,
                       icons: Icons.store,
                       text: "Store"),
-
                   BottomBar(
                       onPressed: () {
                         setState(() {
                           bottomIcons = BottomIcons.Plus;
                         });
+
+                        showModalBottomSheet<void>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Container(
+                              height: 200,
+                              color: Colors.white,
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    sheetList(Icons.payment, "Card payment"),
+                                    SizedBox(height: 5.8,),
+                                    sheetList(Icons.store, "On Delivery"),
+                                    SizedBox(height: 5.8,),
+                                    sheetList(Icons.money, "pay after Testing"),
+
+
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        );
                       },
                       bottomIcons:
-                      bottomIcons == BottomIcons.Plus ? true : false,
+                          bottomIcons == BottomIcons.Plus ? true : false,
                       icons: EvaIcons.plus,
                       text: "".trim()),
-
                   BottomBar(
                       onPressed: () {
                         setState(() {
@@ -122,6 +156,13 @@ class _MainPageState extends State<MainPage> {
           )
         ],
       ),
+    );
+  }
+
+  sheetList(IconData icon,String title){
+    return ListTile(
+      leading: Icon(icon,size:24 ,color: Colors.black38,),
+      title: Text(title),
     );
   }
 }
